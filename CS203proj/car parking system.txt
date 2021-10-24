@@ -1,0 +1,10 @@
+Title:car parking system
+overall objective:A simple project to impliment a car parking system.This system can be used for filling vacancies in parking and getting count on number of cars parked.
+                  This system can have further advancement in automating payment and generating directions for the parking slot.
+                  This system will really be helpul in malls with large number of car parking areas and it will be difficult to have a continuos check for knowing vacancies.
+RTL/software:RTL
+functionality:1.function for letting the car in using a password,it will also take a input on car entry along with the slot it will be going to fill
+              2.function for vehicles with different sizes this will take input of vehicle estimate size for parking(for 2,4 wheelers)
+              3.function for searching vacant place for parking using memory stored from function 1 and size measure given in function 2
+              4.function for updating that vacant spot as filled and computing amount of time it will stay in respective spot for bill generation
+ 

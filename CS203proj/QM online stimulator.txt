@@ -1,0 +1,6 @@
+Title:QM method solver
+Objective:This project is about Programing implementation of the Quine-McCluskey 
+          method for minimization of Boolean expression
+RTL/software:software(c language)
+functionality:This project provides the online stimulation of QM method which is used to minimalizing
+              the binary expression

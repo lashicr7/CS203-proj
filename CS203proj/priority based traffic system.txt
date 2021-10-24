@@ -1,0 +1,14 @@
+*We don't know the actual feasibility on this project*
+title:priority based traffic system
+Objective:This project is about giving priority to the ambulance/VIP vehicles in roads avoiding traffic.
+          This project changes the traffic lights as per the urgency of vehicles along with giving 
+          instructions to the vehicles moving infront to avoid delay.This project also avoids two ambulances heading in
+          two opposite lanes of road which will definitely have opposite signs of traffic signals.This makes the vehicle to move faster
+          to destination.This project can also be advanced to informing traffic police incase of any traffic conflict
+          ahead/there is inperson neccesity for resolving the traffic.
+RTL/software:RTL
+functionality:1.function for sending and receiving inputs from the traffic signals
+              2.function for caluculating the estimated time possible to go to particular destination
+              3.function for checking neccesity for altering signals and altering signals if neccesary
+              4.function for notifying cars and giving directions for avoiding traffic
+              5.function for analysing situation and notifying to nearest officer/nearest hospital incase of emergency
