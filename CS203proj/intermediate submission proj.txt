@@ -1,0 +1,14 @@
+//This program works for parking lot of having 16 car parking spaces
+//module definition:
+moduleforcarparking(clk,reset,sensor_en,sensor_ex,g_led,r_led,time,pos,hex1,hex2)
+input clk,reset,sensor_en,sensor_ex;
+//clk-clock signal of frequency 10 units,sensor_en-sensor for checking car entry,sensor_ex-sensor for checking car exit
+output wire g_led,r_led;
+//for displaying lights for movement: g_led-to move free,r_led-to stop movement
+output reg [4:0]hex1,hex2;
+output wire time[352:0],pos[16:0];
+//time-we have total time of 1440 minutes per day,considering longest time for stay as a day,we need 11 bits for storing a time,for every position we need entry time ,exit time.
+//every position require 11*2=22 bits,total 16 positions=>total bits required are 16*22=352.pos:since we are doing for 16 positon,we are taking 16 bits
+//Functionalities:at the time of entrance we will check vacant position using sensor_en/initial time.we will display green led,red led for fluent movement of vehicles
+//                we will allot position number,change sensor_en,initial time for that positio.At the time of departure of vehicle we will charge as per the time of stay
+//                We will change the sensor_ex and reset the time.We can display this as vacant/use this slot some time for cleaning.
