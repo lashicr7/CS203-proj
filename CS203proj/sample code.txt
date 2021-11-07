@@ -1,0 +1,64 @@
+//code is still not completed sir we are trying to progress it as fast as possible
+module carparking(input clk,reset,
+input sensor_en, sensor_ex,
+ output wire time[351:0],psition[15:0],
+ output wire g_led,r_led;
+ output reg [4:0] HEX_1, HEX_2
+    );
+   
+ parameter IDLE = 3'b000, RIGHT_PASS = 3'b011,STOP = 3'b100;
+ reg[2:0] current_state, next_state;
+ reg[31:0] counter_wait;
+ reg red_tmp,green_tmp;
+ always @(posedge clk or negedge reset_n)
+ begin
+ if(~reset)
+ current_state = IDLE;
+ else
+ current_state = next_state;
+ end
+ // counter_wait
+ always @(posedge clk or negedge reset)
+ begin
+ if(~reset)
+ counter_wait <= 0;
+ else
+ counter_wait <= counter_wait + 1;;
+ end
+ always @(*)
+ begin
+ case(current_state)
+ //this part is still progressing sir:
+{IDLE: begin
+         if(sensor_entrance == 1)
+ else
+ next_state = IDLE;
+ end
+ WAIT_PASSWORD: begin
+ if(counter_wait >= 3)
+ begin
+ next_state = WRONG_PASS;
+ end
+ end
+ WRONG_PASS: begin
+ if()
+ next_state = RIGHT_PASS;
+ else
+ next_state = WRONG_PASS;
+ end
+ RIGHT_PASS: begin
+ if(sensor_en==1 && sensor_ex == 1)
+ next_state = STOP;
+ else if(sensor_ex == 1)
+ next_state = IDLE;
+ else
+ next_state = RIGHT_PASS;
+ end
+ STOP: begin
+ if()
+ next_state = RIGHT_PASS;
+ else
+ next_state = STOP;
+ end
+ default: next_state = IDLE;
+ endcase}
