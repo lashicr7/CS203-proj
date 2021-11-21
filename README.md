@@ -24,5 +24,5 @@ Functionalities
 3)using this code,we can easily create vacancies and fill them 
 
 working
-1)we will check the availability status and verify the can_park for vacancy to fill and assign a location to this vehicle along with passcode for verification passwords usingusing fibonacci series.
+1)we will check the availability status and verify the can_park for vacancy to fill and assign a location to this vehicle along with passcode for verification.passwords are created using fibonacci series.
 2)while the exit of the vehicle,we will check the passcodes and allow the vehicle to move if password is correct,we also indicate them using lights for better security.It will also notifywhen there is wrong information.
