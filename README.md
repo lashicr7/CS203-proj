@@ -19,4 +19,10 @@ g_led,r_led     Led's for determining wrong and right passwards.
 temp            Passcode generated for that position.
 
 Functionalities
-1)Using this code, we can securely moni
+1)Using this code, we can securely make the movement of cars using password verification
+2)using this code we can be able to monitor total number of vacancies and their locations
+3)using this code,we can easily create vacancies and fill them 
+
+working
+1)we will check the availability status and verify the can_park for vacancy to fill and assign a location to this vehicle along with passcode for verification passwords usingusing fibonacci series.
+2)while the exit of the vehicle,we will check the passcodes and allow the vehicle to move if password is correct,we also indicate them using lights for better security.It will also notifywhen there is wrong information.
