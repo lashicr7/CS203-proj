@@ -1,19 +1,19 @@
 module car_parking (register, gl_reset, car_exit, exit_from, exit_code,car_arrival, available_slots,can_park, g_led,r_led,temp,enable);
 
-  input gl_reset;
-  input car_arrival, car_exit;
-  input [2:0]exit_from;
-  input [7:0] exit_code;
+  input gl_reset;//global reset
+  input car_arrival, car_exit;//pulse when car arrives or exits
+  input [2:0]exit_from;//the spot from which car is exiting
+  input [7:0] exit_code;//entering the passscode from the exiting spot
   input enable;
   
-  output reg [2:0] available_slots;
-  output reg can_park;
-  output reg [7:1] register;
-  reg [7:0]ooo,ool,olo,oll,loo,lol,llo,lll;
+  output reg [2:0] available_slots;//how many slots are available
+  output reg can_park;//1 if there slot available for parking, 0 if there is not
+  output reg [7:1] register;//temporary memory to remember the spot where cars are parked
+  output reg [7:0] temp;//holding the passcodes for designated spots
   output wire g_led,r_led;
   
-  reg [2:0] spot;
-  output reg [7:0] temp;
+  reg [2:0] spot;//car has been allowed to exit 
+  reg [7:0]ooo,ool,olo,oll,loo,lol,llo,lll;//memories to hold the passcodes for each spot 
   reg match;
   reg red_tmp=1'b0;
   reg green_tmp=1'b0;
@@ -32,15 +32,18 @@ module car_parking (register, gl_reset, car_exit, exit_from, exit_code,car_arriv
       register <= 0;
       can_park <= 1;
     end
-    else if (available_slots==0)
+    
+    else if (available_slots==0)//if no slots available, car cannot be parked
     begin
       can_park <= 0;
     end
-    else if (car_arrival)
-    begin
+    
+    else if (car_arrival)//if a car arrives and the former two conditions are not met
+    begin//this will execute
       can_park <= 1;
-      available_slots <= available_slots - 1; 
-      for (i=1;i<=7;i = i+1)
+      available_slots <= available_slots - 1; //number of slots will decrease by 1
+      for (i=1;i<=7;i = i+1)//the for loop will check for MSB in register variable that is zero 
+      //and then will park the car in that spot
       begin
         if (register [i]==0)
         begin
@@ -48,7 +51,7 @@ module car_parking (register, gl_reset, car_exit, exit_from, exit_code,car_arriv
         end
       end
 
-      register [spot] <= 1;
+      register [spot] <= 1;//where the car is parked
 
       case (spot)
         3'b111: temp =1+2+3+5+8+13+21+34;
@@ -59,7 +62,7 @@ module car_parking (register, gl_reset, car_exit, exit_from, exit_code,car_arriv
         3'b010: temp =1+2+3;
         3'b001: temp =1+2;
       endcase
-      
+      //generating passcode for each slots, according to fibonacci sequence
       begin
         assign lll =1+2+3+5+8+13+21+34;
         assign llo =1+2+3+5+8+13+21;
@@ -72,11 +75,11 @@ module car_parking (register, gl_reset, car_exit, exit_from, exit_code,car_arriv
         $display("\npasscode for entered vehicle %b",temp);
       end
     end
-    if (car_exit && register[exit_from]==0)
+    if (car_exit && register[exit_from]==0)//this will execute is there is a pulse in car_exit variable
     $display("\nwrong information about exit from");
     if (car_exit && register[exit_from]==1)
-    begin
-      temp=8'bx;
+    begin//find the number from which the car is exiting, and check if the code input from
+      temp=8'bx;//exit_code matches the proper case
       case (exit_from)
 
       7:begin
@@ -117,19 +120,19 @@ module car_parking (register, gl_reset, car_exit, exit_from, exit_code,car_arriv
     endcase
 
     if (match)
-    begin
+    begin//if there is a match in the code given and the passcode, this will emit green light
       green_tmp = 1'b1;
       red_tmp = 1'b0;
       can_park <= 1;
 
-      if(available_slots!=7)
-      begin
+      if(available_slots!=7)//increase the number of available spots
+      begin//if a car exits, the slot becomes available for parking 
         available_slots <= available_slots + 1; 
         temp=8'bx;
       end
-      register [exit_from] <= 0; 
+      register [exit_from] <= 0; //putting zero in that slot of the register to denote it's
     end
-
+    //if the exit_code doesn't match the passcode, the car will not be exit
     else
     begin
       green_tmp = 1'b0;
@@ -165,26 +168,6 @@ module car_parkingtb;
     enable<=1;
     gl_reset=1;
     #50 $display("available slots: %d, can park: %b,gled: %b, rled:%btemp:%b",available_slots, can_park,g_led,r_led,temp);
-    
-    enable=0;
-    #100
-    enable<=1;
-    gl_reset=0;
-    car_arrival<=1'b1;
-    car_exit<=1'b0;
-    exit_from<=1'b0;
-    exit_code<=1'b0;     
-    #50 $display("available slots %d, can park: %b,gled: %b, rled:%btemp:%b",available_slots, can_park,g_led,r_led,temp);
-    
-    enable=0;
-    #100
-    enable<=1;
-    gl_reset=0;
-    car_arrival<=1'b1;
-    car_exit<=1'b0;
-    exit_from<=1'b0;
-    exit_code<=1'b0;     
-    #50 $display("available slots %d, can park: %b,gled: %b, rled:%btemp:%b",available_slots, can_park,g_led,r_led,temp);
     
     enable=0;
     #100
